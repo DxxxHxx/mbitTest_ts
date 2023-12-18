@@ -1,4 +1,5 @@
-
+import { questionData } from "../stores/question/questionData"
 export default function QuestionPage(){
-    return <>QuestionPage</>
+    console.log(questionData)
+    return <>{questionData[0].title}</>
 }
