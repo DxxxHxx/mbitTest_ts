@@ -4,13 +4,14 @@ import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
+import Header from "../components/Header";
 
 export default function MainPage() {
   const naviage = useNavigate();
   const handleClickBtn = () => naviage("/question");
   return (
     <Wrapper>
-      <Header>😽예비 집사 판별기😽</Header>
+      <Header type="header" />
       <ContentWrapper>
         <Title>나에게 맞는 주인님은?!</Title>
         <LogoImg>
@@ -45,6 +46,7 @@ const Wrapper = styled.div`
   /* justify-content: center; */
   font-family: "Jalnan";
 `;
+
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -54,17 +56,6 @@ const ContentWrapper = styled.div`
 
   @media all and (max-width: 376px) {
     padding: 0 7px;
-  }
-`;
-const Header = styled.div`
-  background-color: #ffa07a;
-  font-size: 40pt;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media all and (max-width: 426px) {
-    font-size: 20pt;
   }
 `;
 const Title = styled.div`
