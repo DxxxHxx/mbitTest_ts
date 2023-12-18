@@ -2,15 +2,38 @@ import styled from "styled-components";
 import { questionData } from "../stores/question/questionData";
 import { Button } from "react-bootstrap";
 import Header from "../components/Header";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 export default function QuestionPage() {
-  //   console.log(100 / questionData.length);
+  const navigate = useNavigate();
+
   const [questionIndex, setQuestionIndex] = useState(0);
-//   const navigate = useNavigate();
-  const handleClickAnswer = () => {
-    setQuestionIndex((prev) => prev + 1);
-    console.log(questionIndex);
+  const [totalScore, setTotlaScore] = useState([
+    { id: "EI", score: 0 },
+    { id: "SN", score: 0 },
+    { id: "FT", score: 0 },
+    { id: "PJ", score: 0 },
+  ]);
+
+  const handleClickAnswer = (answer: number, type: string) => {
+    const newScore = totalScore.map((item) => {
+      if (item.id === type) {
+        return {
+          ...item,
+          score: (item.score += answer),
+        };
+      } else {
+        return item;
+      }
+    });
+    setTotlaScore(newScore);
+
+    if (questionData.length !== questionIndex + 1) {
+      setQuestionIndex((prev) => (prev += 1));
+    } else {
+      navigate("/result");
+    }
   };
   return (
     <Wrapper>
@@ -18,10 +41,18 @@ export default function QuestionPage() {
       <ContentWrapper>
         <Title>{questionData[questionIndex].title}</Title>
         <ButtonGroup>
-          <Button onClick={handleClickAnswer}>
+          <Button
+            onClick={() =>
+              handleClickAnswer(1, questionData[questionIndex].type)
+            }
+          >
             {questionData[questionIndex].answerA}
           </Button>
-          <Button onClick={handleClickAnswer}>
+          <Button
+            onClick={() =>
+              handleClickAnswer(0, questionData[questionIndex].type)
+            }
+          >
             {questionData[questionIndex].answerB}
           </Button>
         </ButtonGroup>
