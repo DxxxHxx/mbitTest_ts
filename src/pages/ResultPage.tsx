@@ -2,14 +2,15 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import { resultData } from "../stores/result/resultData";
 import Image from "react-bootstrap/Image";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import KakaoShareBtn from "../components/KakaoShareBtn";
 
 export default function ResultPage() {
   const [searchParams] = useSearchParams();
   const mbti = searchParams.get("mbti");
-  const result=resultData.find(item=>item.best===mbti)
-
- 
+  const result = resultData.find((item) => item.best === mbti);
+  const navigate = useNavigate();
   return (
     <Wrapper>
       <Header type="header" />
@@ -24,7 +25,16 @@ export default function ResultPage() {
             height={350}
           />
         </ResultImg>
-        <Desc>결과 : {mbti}, 추천 : {result?.name}</Desc>
+        <Desc>
+          결과 : {mbti}, 추천 : {result?.name}
+        </Desc>
+        <BtnWrapper>
+          <Button onClick={() => navigate("/")} style={{ width: 170 }}>
+            테스트 다시하기
+          </Button>
+
+          <KakaoShareBtn data={result!} />
+        </BtnWrapper>
       </ContentWrapper>
     </Wrapper>
   );
@@ -70,4 +80,11 @@ const Desc = styled.div`
   @media all and (max-width: 426px) {
     font-size: 14pt;
   }
+`;
+const BtnWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
+  margin-bottom: 30px;
 `;
