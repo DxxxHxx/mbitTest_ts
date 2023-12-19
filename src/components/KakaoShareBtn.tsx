@@ -11,6 +11,7 @@ export default function KakaoShareBtn({ data }: IProps) {
   const url = `https://precious-speculoos-d1dee4.netlify.app/`;
   const resultUrl = window.location.href;
 
+  console.log(Kakao.Share.sendDefault);
   useEffect(() => {
     if (!Kakao.isInitialized) {
       Kakao.init(`a6d7dd9a6cb6deb9a66e805133ab45b8`);
