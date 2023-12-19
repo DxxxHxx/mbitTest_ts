@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { questionData } from "../stores/question/questionData";
 import { Button } from "react-bootstrap";
 import Header from "../components/Header";
-import React, { useState } from "react";
+import { useState } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
 
 export default function QuestionPage() {
@@ -32,7 +32,13 @@ export default function QuestionPage() {
     if (questionData.length !== questionIndex + 1) {
       setQuestionIndex((prev) => (prev += 1));
     } else {
-      const mbti = "ENTJ";
+      const mbti = newScore.reduce(
+        (acc, cur) =>
+          acc +
+          (cur.score >= 2 ? cur.id.substring(0, 1) : cur.id.substring(1, 2)),
+        ""
+      );
+
       navigate({
         pathname: "/result",
         search: `?${createSearchParams({ mbti: mbti })}`,

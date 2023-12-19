@@ -7,6 +7,9 @@ import { useSearchParams } from "react-router-dom";
 export default function ResultPage() {
   const [searchParams] = useSearchParams();
   const mbti = searchParams.get("mbti");
+  const result=resultData.find(item=>item.best===mbti)
+
+ 
   return (
     <Wrapper>
       <Header type="header" />
@@ -15,13 +18,13 @@ export default function ResultPage() {
         <ResultImg>
           <Image
             roundedCircle
-            src={resultData[0].img}
+            src={result?.img}
             alt="cat"
             width={350}
             height={350}
           />
         </ResultImg>
-        <Desc>{resultData[0].desc}</Desc>
+        <Desc>결과 : {mbti}, 추천 : {result?.name}</Desc>
       </ContentWrapper>
     </Wrapper>
   );
