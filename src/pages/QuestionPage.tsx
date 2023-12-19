@@ -3,7 +3,7 @@ import { questionData } from "../stores/question/questionData";
 import { Button } from "react-bootstrap";
 import Header from "../components/Header";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 export default function QuestionPage() {
   const navigate = useNavigate();
@@ -32,7 +32,11 @@ export default function QuestionPage() {
     if (questionData.length !== questionIndex + 1) {
       setQuestionIndex((prev) => (prev += 1));
     } else {
-      navigate("/result");
+      const mbti = "ENTJ";
+      navigate({
+        pathname: "/result",
+        search: `?${createSearchParams({ mbti: mbti })}`,
+      });
     }
   };
   return (
